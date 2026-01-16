@@ -8,8 +8,8 @@ import { connectDB , disconnectDB} from './config/db.js';
  import authRoutes from './routes/authRoutes.js'; 
  
 config();
-connectDB();
-
+connectDB();  
+  
   
 const app = express();    
 
