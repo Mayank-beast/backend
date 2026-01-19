@@ -1,26 +1,34 @@
-// const express = require('express'); 
-import express from 'express';  
+// const express = require('express');
 import { config } from 'dotenv';
-import { connectDB , disconnectDB} from './config/db.js';
+config(); // Load environment variables FIRST
 
- //import routes
- import movieRoutes from './routes/movieRoutes.js';
- import authRoutes from './routes/authRoutes.js'; 
+import express from 'express';
+import { connectDB, disconnectDB } from './config/db.js';
+
+//import routes
+import movieRoutes from './routes/movieRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import watchlistRoutes from './routes/watchlistRoutes.js';
+
+config();  
+connectDB();
+
+
+const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
  
-config();
-connectDB();  
-  
-  
-const app = express();    
-
-app.use('/movies', movieRoutes);
+app.use('/movies', movieRoutes); 
 app.use('/auth', authRoutes);
+app.use('/watchlist', watchlistRoutes);
 
 const PORT = 5001;
 
-const server = app.listen(PORT, () => { 
-    console.log(`Server is running on port ${PORT}`); 
-});   
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 // Handle unhandled promise rejections (e.g., database connection errors)
 process.on("unhandledRejection", (err) => {

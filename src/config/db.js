@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient({
     log:
-      process.env.NODE_ENV === "development"
-        ? ["query", "warn", "error"] 
-        : ["error"],
+        process.env.NODE_ENV === "development"
+            ? ["query", "warn", "error"]
+            : ["error"],
 });
 
 const connectDB = async () => {
@@ -22,4 +22,3 @@ const disconnectDB = async () => {
 };
 
 export { prisma, connectDB, disconnectDB };
- 
